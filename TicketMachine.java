@@ -17,15 +17,23 @@ public class TicketMachine
     private int balance;
     // The total amount of money collected by this machine.
     private int total;
-
+    private boolean tipoMaquina;
+    private int maxTicket;
     /**
      * Create a machine that issues tickets of the given price.
+     * True is award machine.
+     * False is normal machine.
+     * 
      */
-    public TicketMachine(int cost)
+    public TicketMachine(int cost,boolean tipo,int ticket)
+
     {
+
         price = cost;
         balance = 0;
         total = 0;
+        tipoMaquina=tipo;
+        maxTicket=ticket;
     }
 
     /**
@@ -51,8 +59,11 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
-        if(amount > 0) {
+        if(amount > 0 & maxTicket >0) {
             balance = balance + amount;
+        }
+        else if(maxTicket == 0){
+            System.out.println("you can´t take more tickets");
         }
         else {
             System.out.println("Use a positive amount rather than: " +
@@ -67,19 +78,40 @@ public class TicketMachine
      */
     public void printTicket()
     {
-        if(balance >= price) {
+        if(balance >= price & tipoMaquina==true) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
+
             System.out.println("# The BlueJ Line");
             System.out.println("# Ticket");
             System.out.println("# " + price + " cents.");
             System.out.println("##################");
             System.out.println();
 
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + price + " cents.");
+            System.out.println("##################");
+            System.out.println();
+            System.out.println("award ticket");
             // Update the total collected with the price.
             total = total + price;
             // Reduce the balance by the prince.
             balance = balance - price;
+            maxTicket -= 1;
+
+        }
+        else if(balance>=price & tipoMaquina == false){ 
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + price + " cents.");
+            System.out.println("##################");
+            System.out.println();
+            // Update the total collected with the price.
+            total = total + price;
+            // Reduce the balance by the prince.
+            balance = balance - price;
+            maxTicket -= 1;
         }
         else {
             System.out.println("You must insert at least: " +
@@ -119,4 +151,5 @@ public class TicketMachine
         }
         return status;
     }
-}
+}    
+
