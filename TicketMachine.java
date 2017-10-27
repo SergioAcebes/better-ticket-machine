@@ -99,15 +99,24 @@ public class TicketMachine
         balance = 0;
         return amountToRefund;
     }
-    
+
     /**
      * vacia la maquina
      */
     public int emptyMachine()
     {
-        int totalMaquina;
-        totalMaquina = balance + total;
-        balance = 0;
-        return totalMaquina;
+        int status;
+        status=0;
+        if (balance==0){
+            int totalMaquina;
+            totalMaquina = total;
+            total = 0;
+            status = totalMaquina;
+        }
+        else{
+            System.out.println("ERROR:no se puede vaciar la maquina porque hay una operacion en curso");
+            status = -1;
+        }
+        return status;
     }
 }
